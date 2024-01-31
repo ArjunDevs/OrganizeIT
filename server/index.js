@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import { UserRouter } from "./routes/User.js";
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use(cors());
+
+app.use("/user", UserRouter);
 
 const CONNECTION_URL = process.env.MONGODB_CONNECTION_STRING;
 const PORT = process.env.port || 5000;
