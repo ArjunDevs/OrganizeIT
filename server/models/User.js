@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Board } from "./Board.js";
 
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },

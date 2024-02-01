@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Auth.css";
 import { useDispatch } from "react-redux";
 import { signup, signin } from "../../actions/auth";
+import { useNavigate } from "react-router-dom";
 
 const InitialFormData = {
     firstName: "",
@@ -15,6 +16,7 @@ export const Auth = () => {
     const [FormData, setFormData] = useState(InitialFormData);
     const [isSignup, setIsSignup] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...FormData, [e.target.name]: e.target.value });
@@ -26,11 +28,10 @@ export const Auth = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(FormData);
         if (isSignup) {
-            dispatch(signup(FormData));
+            dispatch(signup(FormData, navigate));
         } else {
-            dispatch(signin(FormData));
+            dispatch(signin(FormData, navigate));
         }
     };
 

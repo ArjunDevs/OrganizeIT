@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const boardSchema = mongoose.Schema({
     title: String,
-    tasksLists: [
+    taskLists: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "TaskList",

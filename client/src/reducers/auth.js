@@ -1,8 +1,6 @@
-export const Authreducer = (state = [], action) => {
+export const Authreducer = (state = {}, action) => {
     switch (action.type) {
         case "SIGNIN":
-            console.log("in signin reducer");
-            console.log({ ...action?.data });
             localStorage.setItem(
                 "profile",
                 JSON.stringify({ ...action?.data })
@@ -14,6 +12,10 @@ export const Authreducer = (state = [], action) => {
                 JSON.stringify({ ...action?.data })
             );
             return { ...state, authData: action.data };
+
+        case "SIGNOUT":
+            localStorage.clear();
+            return { ...state, authData: null };
         default:
             return state;
     }
