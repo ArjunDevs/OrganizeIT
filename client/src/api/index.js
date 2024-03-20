@@ -12,3 +12,15 @@ export const deleteboard = (userId, boardId) =>
 
 export const editboard = (userId, boardId, BoardData) =>
     API.post(`/user/${userId}/${boardId}/editboard`, BoardData);
+
+export const gettasklists = (boardId) =>
+    API.get(`/board/${boardId}/gettasklists`);
+
+export const createtasklist = (boardId, TaskListData) =>
+    API.post(`/board/${boardId}/createTaskList`, TaskListData);
+
+export const edittasklist = (boardId, taskListId, taskListdata) =>
+    API.post(`/board/${boardId}/${taskListId}/edittasklist`, taskListdata);
+
+export const deletetasklist = (boardId, tasklistId) =>
+    API.post(`/board/${boardId}/deletetasklist`, { taskListId: tasklistId });

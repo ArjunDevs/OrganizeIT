@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteboard, editboard } from "../../actions/user";
+import { useNavigate } from "react-router-dom";
 
 export const BoardCard = (props) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isEditBoardInfo, setIsEditBoardInfo] = useState(false);
     const [BoardFormData, setBoardFormData] = useState({
         title: props.title,
@@ -27,9 +29,15 @@ export const BoardCard = (props) => {
         setBoardFormData({ ...BoardFormData, [e.target.name]: e.target.value });
     };
 
+    const handleBoardCardClick = (e) => {
+        e.preventDefault();
+        navigate(`/${props.userId}/Board/${props.id}`);
+    };
     return (
         <div>
-            <h1>{props.title}</h1>
+            <h1 onClick={handleBoardCardClick} style={{ cursor: "pointer" }}>
+                {props.title}
+            </h1>
             {!isEditBoardInfo && (
                 <button onClick={handleEditBoardInfo}>Edit Board Info</button>
             )}
