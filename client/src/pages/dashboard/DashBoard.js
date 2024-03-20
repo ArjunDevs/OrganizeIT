@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getboards, createboard } from "../../actions/user";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { BoardCard } from "../../components/boardCard/BoardCard";
 
 // on dashboard we  need :
 // 1. all the boards the user currently has.
 // 2. option to create a new board.
-// 3. edit a board (title and desc)
+// 3. edit a board (title)
 // 4. delete a board
 // userid is fetched from the backeend which is used to call the routes
+
 const InitialBoardFormData = {
     title: "",
 };
@@ -61,7 +63,12 @@ export const DashBoard = () => {
         <div>
             <h1>this is the dashboard</h1>
             {userboardsData.Userboards.map((board) => (
-                <h3 key={board._id}>{board.title}</h3>
+                <BoardCard
+                    key={board._id}
+                    id={board._id}
+                    title={board.title}
+                    userId={userId}
+                />
             ))}
             {!isCreateNewBoard && (
                 <button onClick={handleCreateButtonClick}>

@@ -17,3 +17,21 @@ export const createboard = (userId, BoardFormdata) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const deleteboard = (userId, boardId) => async (dispatch) => {
+    try {
+        const { data } = await api.deleteboard(userId, boardId);
+        dispatch({ type: "DELETE_BOARD", data });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const editboard = (userId, boardId, BoardData) => async (dispatch) => {
+    try {
+        const { data } = await api.editboard(userId, boardId, BoardData);
+        dispatch({ type: "EDIT_BOARD", data });
+    } catch (error) {
+        console.log(error);
+    }
+};

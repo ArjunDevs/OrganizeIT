@@ -4,6 +4,10 @@ export const UserReducer = (state = { Userboards: [] }, action) => {
             return { ...state, Userboards: action?.data.boards };
         case "CREATE_BOARD":
             return { ...state, Userboards: action?.data.boards };
+        case "DELETE_BOARD":
+            return { ...state, Userboards: action?.data.boards };
+        case "EDIT_BOARD":
+            return { ...state, Userboards: action?.data.boards };
         default:
             return state;
     }
