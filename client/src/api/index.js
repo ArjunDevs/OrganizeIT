@@ -24,3 +24,15 @@ export const edittasklist = (boardId, taskListId, taskListdata) =>
 
 export const deletetasklist = (boardId, tasklistId) =>
     API.post(`/board/${boardId}/deletetasklist`, { taskListId: tasklistId });
+
+export const gettasks = (taskListId) =>
+    API.get(`/tasklist/${taskListId}/gettasks`);
+
+export const createtask = (taskListId, TaskData) =>
+    API.post(`/tasklist/${taskListId}/createtask`, TaskData);
+
+export const edittask = (tasklistId, taskId, taskFormData) =>
+    API.post(`/tasklist/${tasklistId}/${taskId}/edittask`, taskFormData);
+
+export const deletetask = (tasklistId, taskId) =>
+    API.post(`/tasklist/${tasklistId}/deletetask`, { taskId });

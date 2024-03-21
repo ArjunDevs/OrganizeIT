@@ -16,7 +16,10 @@ export const Board = () => {
         useState(InitialTaskListData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const taskListsdata = useSelector((state) => state.board);
+
+    const taskListsdata = useSelector(
+        (state) => state.board[linkParams.boardId] || []
+    );
 
     useEffect(() => {
         const user = localStorage.getItem("profile");
@@ -57,7 +60,7 @@ export const Board = () => {
     return (
         <div>
             <div>
-                {taskListsdata.TaskLists.map((tasklist) => (
+                {taskListsdata.map((tasklist) => (
                     <TaskList
                         key={tasklist._id}
                         id={tasklist._id}

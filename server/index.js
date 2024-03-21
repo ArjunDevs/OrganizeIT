@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { UserRouter } from "./routes/User.js";
 import { BoardRouter } from "./routes/Board.js";
+import { TaskListRouter } from "./routes/TaskList.js";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors());
 
 app.use("/user", UserRouter);
 app.use("/board", BoardRouter);
+app.use("/tasklist", TaskListRouter);
 
 const CONNECTION_URL = process.env.MONGODB_CONNECTION_STRING;
 const PORT = process.env.port || 5000;

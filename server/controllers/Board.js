@@ -10,7 +10,7 @@ export const getTaskLists = async (req, res) => {
         }
         const tasklists = board.taskLists;
 
-        return res.status(200).json({ tasklists });
+        return res.status(200).json({ boardId, tasklists });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "internal server error" });
@@ -34,7 +34,7 @@ export const createTaskList = async (req, res) => {
 
         const tasklists = UpdatedBoard.taskLists;
 
-        return res.status(200).json({ tasklists });
+        return res.status(200).json({ boardId, tasklists });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "internal server error" });
@@ -54,7 +54,7 @@ export const editTaskList = async (req, res) => {
         const board = await Board.findById(boardId).populate("taskLists");
         const tasklists = board.taskLists;
 
-        return res.status(200).json({ tasklists });
+        return res.status(200).json({ boardId, tasklists });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "internal server error" });
@@ -86,7 +86,7 @@ export const deleteTaskList = async (req, res) => {
         );
         const tasklists = UpdatedBoard.taskLists;
 
-        return res.status(200).json({ tasklists });
+        return res.status(200).json({ boardId, tasklists });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "internal server error" });
