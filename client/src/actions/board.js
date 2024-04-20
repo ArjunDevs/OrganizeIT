@@ -40,3 +40,34 @@ export const deletetasklist = (boardId, tasklistId) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const performTaskDragReorder =
+    (
+        destinationTaskListId,
+        destinationIndex,
+        sourceTaskListId,
+        sourceIndex,
+        draggedTaskId
+    ) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: "DRAG_REORDER_TASK",
+                payload: {
+                    destinationTaskListId,
+                    destinationIndex,
+                    sourceTaskListId,
+                    sourceIndex,
+                },
+            });
+            await api.performTaskDragReorder(
+                destinationTaskListId,
+                destinationIndex,
+                sourceTaskListId,
+                sourceIndex,
+                draggedTaskId
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };

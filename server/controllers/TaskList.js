@@ -98,3 +98,58 @@ export const deletetask = async (req, res) => {
         res.status(500).json({ message: "internal server error" });
     }
 };
+
+export const dragReorderTask = async (req, res) => {
+    const { sourceTaskListId, destinationTaskListId } = req.params;
+    const { destinationIndex, sourceIndex, draggedTaskId } = req.body;
+
+    try {
+        if (sourceTaskListId !== destinationTaskListId) {
+            const sourceTaskList = await TaskList.findById(sourceTaskListId);
+            const destinationTaskList = await TaskList.findById(
+                destinationTaskListId
+            );
+
+            sourceTaskList.tasks.splice(sourceIndex, 1);
+            destinationTaskList.tasks.splice(
+                destinationIndex,
+                0,
+                draggedTaskId
+            );
+
+            await sourceTaskList.save();
+            await destinationTaskList.save();
+
+            const updatedSourceTaskList = await TaskList.findById(
+                sourceTaskListId
+            ).populate("tasks");
+            const updatedDestinationTaskList = await TaskList.findById(
+                destinationTaskListId
+            ).populate("tasks");
+
+            return res.status(200).json({
+                sourceTaskListId: sourceTaskListId,
+                destinationTaskListId: destinationTaskListId,
+                sourceTasks: updatedSourceTaskList.tasks,
+                destinationTasks: updatedDestinationTaskList.tasks,
+            });
+        } else {
+            const sameTaskListId = sourceTaskListId;
+            const tasklist = await TaskList.findById(sameTaskListId);
+            tasklist.tasks.splice(sourceIndex, 1);
+            tasklist.tasks.splice(destinationIndex, 0, draggedTaskId);
+            await tasklist.save();
+
+            const updatedtasklist =
+                TaskList.findById(sameTaskListId).populate("tasks");
+            return res.status(200).json({
+                sourceTaskListId: sourceTaskListId,
+                destinationTaskListId: destinationTaskListId,
+                tasks: updatedtasklist.tasks,
+            });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: "internal server error" });
+    }
+};

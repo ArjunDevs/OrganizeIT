@@ -36,3 +36,15 @@ export const edittask = (tasklistId, taskId, taskFormData) =>
 
 export const deletetask = (tasklistId, taskId) =>
     API.post(`/tasklist/${tasklistId}/deletetask`, { taskId });
+
+export const performTaskDragReorder = (
+    destinationTaskListId,
+    destinationIndex,
+    sourceTaskListId,
+    sourceIndex,
+    draggedTaskId
+) =>
+    API.post(
+        `/tasklist/${sourceTaskListId}/${destinationTaskListId}/dragreordertask`,
+        { destinationIndex, sourceIndex, draggedTaskId }
+    );

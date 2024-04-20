@@ -8,6 +8,8 @@ import { jwtDecode } from "jwt-decode";
 import { FiEdit } from "react-icons/fi";
 import { AiFillDelete } from "react-icons/ai";
 import { AiOutlinePlus } from "react-icons/ai";
+import { IoAddCircleOutline } from "react-icons/io5";
+import { Droppable } from "react-beautiful-dnd";
 
 const initialTaskFormData = {
     title: "",
@@ -117,20 +119,40 @@ export const TaskList = (props) => {
                     </button>
                 </div>
             </div>
-            <div className="flex flex-col">
-                {TaskData.map((task) => (
-                    <Task
-                        key={task._id}
-                        id={task._id}
-                        data={task}
-                        tasklistId={props.id}
-                    />
-                ))}
-            </div>
+
+            <Droppable
+                droppableId={`tasklist-${props.id}`}
+                key={`tasklist-${props.id}`}
+            >
+                {(provided) => (
+                    <div
+                        className="flex flex-col"
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                    >
+                        {TaskData.length === 0 && (
+                            <div className=" opacity-20 bg-inherit w-auto min-h-20 flex flex-row justify-center items-center rounded-lg mb-2 p-2 border-dashed border-4 border-black">
+                                <IoAddCircleOutline className="text-black w-7 h-7 p-1" />
+                                <span>Add or drag items</span>
+                            </div>
+                        )}
+                        {TaskData.map((task, index) => (
+                            <Task
+                                key={task._id}
+                                id={task._id}
+                                data={task}
+                                tasklistId={props.id}
+                                index={index}
+                            />
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
             <div className="flex flex-col justify-center items-center">
                 {!isCreateNewTask && (
                     <button
-                        className="w-full rounded-lg bg-slate-200 hover:bg-slate-300 hover:font-bold transition-all duration-300"
+                        className="w-full rounded-lg bg-slate-200 hover:bg-slate-300 hover:font-bold transition duration-300"
                         onClick={handleCreateTask}
                     >
                         <div className="flex flex-row justify-center items-center">
