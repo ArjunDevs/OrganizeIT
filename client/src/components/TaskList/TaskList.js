@@ -5,6 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Task } from "../Task/Task";
 import { gettasks, createtask } from "../../actions/tasklist";
 import { jwtDecode } from "jwt-decode";
+import { FiEdit } from "react-icons/fi";
+import { AiFillDelete } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 
 const initialTaskFormData = {
     title: "",
@@ -82,10 +85,39 @@ export const TaskList = (props) => {
         });
     };
 
+    const handleCancelEditTaskList = () => {
+        setisEditTaskListInfo((prevValue) => !prevValue);
+    };
+
+    const handleCancelCreateTask = () => {
+        setIsCreateNewTask((prevValue) => !prevValue);
+    };
+
     return (
-        <div>
-            <div>
-                <h1>This is the tasklist : {props.title}</h1>
+        <div className="h-fit min-w-96 border border-white mr-10 rounded-lg flex flex-col p-5 bg-slate-200/80">
+            <div className="flex flex-row justify-between items-center border-b-2 border-slate-500 pb-1 mb-1">
+                <h1 className="text-xl font-extrabold font-mono text-slate-800 truncate">
+                    {props.title}
+                </h1>
+                <div className="flex flex-row">
+                    {!isEditTaskListInfo && (
+                        <button
+                            className="rounded-md hover:bg-slate-300 transition-colors duration-300"
+                            onClick={handleEditTaskListInfo}
+                        >
+                            <FiEdit className=" text-blue-800 w-8 h-8 p-1" />
+                        </button>
+                    )}
+
+                    <button
+                        className="rounded-md hover:bg-slate-300 transition-colors duration-300"
+                        onClick={handleTaskListDelete}
+                    >
+                        <AiFillDelete className=" text-red-500 w-8 h-8 p-1" />
+                    </button>
+                </div>
+            </div>
+            <div className="flex flex-col">
                 {TaskData.map((task) => (
                     <Task
                         key={task._id}
@@ -95,59 +127,113 @@ export const TaskList = (props) => {
                     />
                 ))}
             </div>
-            <div>
+            <div className="flex flex-col justify-center items-center">
                 {!isCreateNewTask && (
-                    <button onClick={handleCreateTask}>
-                        {" "}
-                        click to create new task
+                    <button
+                        className="w-full rounded-lg bg-slate-200 hover:bg-slate-300 hover:font-bold transition-all duration-300"
+                        onClick={handleCreateTask}
+                    >
+                        <div className="flex flex-row justify-center items-center">
+                            <AiOutlinePlus className=" text-blue-500 w-8 h-8 p-1" />
+                            <span className="">Create Task</span>
+                        </div>
                     </button>
                 )}
-                {isCreateNewTask && (
-                    <div>
-                        <form onSubmit={handlecreateTaskSubmit}>
-                            <label>
-                                Title:{" "}
-                                <input
-                                    type="text"
-                                    name="title"
-                                    onChange={handleCreateTaskFormDataChange}
-                                />
-                                Desccription:{" "}
-                                <input
-                                    type="text"
-                                    name="description"
-                                    onChange={handleCreateTaskFormDataChange}
-                                />
-                            </label>
-                            <button type="submit">Create</button>
+            </div>
+
+            {isEditTaskListInfo && (
+                <div className="absolute inset-0 bg-white/30 pt-16 backdrop-blur-sm flex flex-col justify-center items-center">
+                    <div className="bg-transparent backdrop-blur-lg w-auto h-auto px-10 py-10 flex flex-col border-2 border-gray-300 rounded">
+                        <h1 className="mb-4 font-mono text-gray-700 text-3xl font-extrabold">
+                            Edit Task List
+                        </h1>
+                        <form
+                            className="flex flex-col"
+                            onSubmit={handleEditSubmit}
+                        >
+                            <div className="flex flex-col">
+                                <label className="font-mono text-gray-700 text-xl py-1">
+                                    Title:{" "}
+                                    <input
+                                        className="bg-gray-700 rounded h-10 mb-2 border border-gray-500 hover:border-gray-300 text-gray-300 text-lg font-semibold px-2 w-80"
+                                        type="text"
+                                        name="title"
+                                        onChange={handleFormDataChange}
+                                        value={TasklistFormData.title}
+                                    />
+                                </label>
+                            </div>
+                            <div className="flex flex-row justify-between items-center">
+                                <button
+                                    className="px-3 py-2 rounded bg-gray-300 text-black hover:bg-black hover:text-gray-300 transition-colors duration-300 font-bold"
+                                    type="submit"
+                                >
+                                    Create
+                                </button>
+                                <button
+                                    className="px-3 py-2 rounded bg-gray-300 text-black hover:bg-black hover:text-gray-300 transition-colors duration-300 font-bold"
+                                    onClick={handleCancelEditTaskList}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
                         </form>
                     </div>
-                )}
-            </div>
-            <div>
-                {!isEditTaskListInfo && (
-                    <button onClick={handleEditTaskListInfo}>
-                        Edit TaskList Info
-                    </button>
-                )}
-                {isEditTaskListInfo && (
-                    <div>
-                        <form onSubmit={handleEditSubmit}>
-                            <label>
-                                Title:{" "}
-                                <input
-                                    type="text"
-                                    name="title"
-                                    onChange={handleFormDataChange}
-                                    value={TasklistFormData.title}
-                                />
-                            </label>
-                            <button type="submit">Create</button>
+                </div>
+            )}
+
+            {isCreateNewTask && (
+                <div className="absolute inset-0 bg-white/30 pt-16 backdrop-blur-sm flex flex-col justify-center items-center">
+                    <div className="bg-transparent backdrop-blur-lg w-auto h-auto px-10 py-10 flex flex-col border-2 border-gray-300 rounded">
+                        <h1 className="mb-4 font-mono text-gray-700 text-3xl font-extrabold">
+                            Create Task
+                        </h1>
+                        <form
+                            className="flex flex-col"
+                            onSubmit={handlecreateTaskSubmit}
+                        >
+                            <div className="flex flex-col">
+                                <label className="font-mono text-gray-700 text-xl py-1">
+                                    Title:{" "}
+                                    <input
+                                        className="bg-gray-700 rounded h-10 mb-2 border border-gray-500 hover:border-gray-300 text-gray-300 text-lg font-semibold px-2 w-80"
+                                        type="text"
+                                        name="title"
+                                        onChange={
+                                            handleCreateTaskFormDataChange
+                                        }
+                                    />
+                                </label>
+                                <label className="font-mono text-gray-700 text-xl py-1">
+                                    Description:{" "}
+                                    <input
+                                        className="bg-gray-700 rounded h-10 mb-2 border border-gray-500 hover:border-gray-300 text-gray-300 text-lg font-semibold px-2 w-80"
+                                        type="text"
+                                        name="description"
+                                        onChange={
+                                            handleCreateTaskFormDataChange
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div className="flex flex-row justify-between items-center">
+                                <button
+                                    className="px-3 py-2 rounded bg-gray-300 text-black hover:bg-black hover:text-gray-300 transition-colors duration-300 font-bold"
+                                    type="submit"
+                                >
+                                    Create
+                                </button>
+                                <button
+                                    className="px-3 py-2 rounded bg-gray-300 text-black hover:bg-black hover:text-gray-300 transition-colors duration-300 font-bold"
+                                    onClick={handleCancelCreateTask}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
                         </form>
                     </div>
-                )}
-                <button onClick={handleTaskListDelete}>Delete Tasklist</button>
-            </div>
+                </div>
+            )}
         </div>
     );
 };

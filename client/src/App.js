@@ -4,10 +4,12 @@ import { Auth } from "./pages/auth/Auth";
 import { Home } from "./pages/home/Home";
 import { DashBoard } from "./pages/dashboard/DashBoard";
 import { Board } from "./pages/Board/Board";
+import { Navbar } from "./components/Navbar/Navbar";
 
 function App() {
     return (
         <BrowserRouter>
+            <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/auth" element={<Auth />} />

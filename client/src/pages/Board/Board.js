@@ -57,9 +57,13 @@ export const Board = () => {
         dispatch(createtasklist(linkParams.boardId, TasklistFormData));
     };
 
+    const handleCancel = () => {
+        setIsCreateNewTasklist((prevValue) => !prevValue);
+    };
+
     return (
-        <div>
-            <div>
+        <div className="pt-16 bg-gray-800 min-h-screen flex flex-row">
+            <div className="flex flex-row justify-between px-20 py-5 overflow-auto">
                 {taskListsdata.map((tasklist) => (
                     <TaskList
                         key={tasklist._id}
@@ -67,26 +71,52 @@ export const Board = () => {
                         title={tasklist.title}
                     />
                 ))}
+                {!isCreateNewTasklist && (
+                    <div className="min-w-96">
+                        <button
+                            className="w-full px-3 py-2 rounded bg-gray-300 text-black hover:bg-black hover:text-gray-300 transition-colors duration-300 font-bold hover:border-white border"
+                            onClick={handleCreateTaskList}
+                        >
+                            {" "}
+                            Create Tasklist
+                        </button>
+                    </div>
+                )}
             </div>
-            {!isCreateNewTasklist && (
-                <button onClick={handleCreateTaskList}>
-                    {" "}
-                    click to create new task list
-                </button>
-            )}
             {isCreateNewTasklist && (
-                <div>
-                    <form onSubmit={handleSubmit}>
-                        <label>
-                            Title:{" "}
-                            <input
-                                type="text"
-                                name="title"
-                                onChange={handleFormDataChange}
-                            />
-                        </label>
-                        <button type="submit">Create</button>
-                    </form>
+                <div className="absolute inset-0 bg-white/30 pt-16 backdrop-blur-sm flex flex-col justify-center items-center">
+                    <div className="bg-transparent backdrop-blur-lg w-auto h-auto px-10 py-10 flex flex-col border-2 border-gray-300 rounded">
+                        <h1 className="mb-4 font-mono text-gray-700 text-3xl font-extrabold">
+                            Create New TaskList
+                        </h1>
+                        <form className="flex flex-col" onSubmit={handleSubmit}>
+                            <div className="flex flex-col">
+                                <label className="font-mono text-gray-700 text-xl py-1">
+                                    Title:{" "}
+                                    <input
+                                        className="bg-gray-700 rounded h-10 mb-2 border border-gray-500 hover:border-gray-300 text-gray-300 text-lg font-semibold px-2 w-80"
+                                        type="text"
+                                        name="title"
+                                        onChange={handleFormDataChange}
+                                    />
+                                </label>
+                            </div>
+                            <div className="flex flex-row justify-between items-center">
+                                <button
+                                    className="px-3 py-2 rounded bg-gray-300 text-black hover:bg-black hover:text-gray-300 transition-colors duration-300 font-bold"
+                                    type="submit"
+                                >
+                                    Create
+                                </button>
+                                <button
+                                    className="px-3 py-2 rounded bg-gray-300 text-black hover:bg-black hover:text-gray-300 transition-colors duration-300 font-bold"
+                                    onClick={handleCancel}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </div>

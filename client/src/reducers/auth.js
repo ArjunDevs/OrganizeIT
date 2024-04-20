@@ -1,4 +1,4 @@
-export const Authreducer = (state = {}, action) => {
+export const Authreducer = (state = { authData: null }, action) => {
     switch (action.type) {
         case "SIGNIN":
             localStorage.setItem(
