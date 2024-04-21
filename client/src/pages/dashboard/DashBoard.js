@@ -37,6 +37,7 @@ export const DashBoard = () => {
                 setUserId(parsedUserId);
                 dispatch(getboards(parsedUserId));
             } else {
+                alert("Authentication Expired! please re-Login!");
                 // dispatch a logout action.
                 dispatch({ type: "SIGNOUT" });
                 //navigate to home

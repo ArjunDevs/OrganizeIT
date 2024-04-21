@@ -38,6 +38,7 @@ export const Board = () => {
                 dispatch(gettasklists(linkParams.boardId));
             } else {
                 // dispatch a logout action.
+                alert("Authentication Expired! please re-Login!");
                 dispatch({ type: "SIGNOUT" });
                 //navigate to home
                 navigate("/");

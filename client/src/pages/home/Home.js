@@ -14,8 +14,10 @@ export const Home = () => {
             let currentTime = new Date();
             if (decodedToken?.exp * 1000 > currentTime.getTime()) {
                 //valid
+                alert("You're LoggedIn! Taking you to your dashboard");
                 navigate("/dashboard");
             } else {
+                alert("Authentication Expired! please re-Login!");
                 //dispatch a logout action.
                 dispatch({ type: "SIGNOUT" });
             }
