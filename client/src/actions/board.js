@@ -5,7 +5,12 @@ export const gettasklists = (boardId) => async (dispatch) => {
         const { data } = await api.gettasklists(boardId);
         dispatch({ type: "GET_ALL_TASKLISTS", data });
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            alert("Authentication Expired! please re-Login!");
+            dispatch({ type: "SIGNOUT" });
+        } else {
+            console.log(error);
+        }
     }
 };
 
@@ -14,7 +19,12 @@ export const createtasklist = (boardId, TaskListData) => async (dispatch) => {
         const { data } = await api.createtasklist(boardId, TaskListData);
         dispatch({ type: "CREATE_TASKLIST", data });
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            alert("Authentication Expired! please re-Login!");
+            dispatch({ type: "SIGNOUT" });
+        } else {
+            console.log(error);
+        }
     }
 };
 
@@ -28,7 +38,12 @@ export const edittasklist =
             );
             dispatch({ type: "EDIT_TASKLIST", data });
         } catch (error) {
-            console.log(error);
+            if (error.response) {
+                alert("Authentication Expired! please re-Login!");
+                dispatch({ type: "SIGNOUT" });
+            } else {
+                console.log(error);
+            }
         }
     };
 
@@ -37,7 +52,12 @@ export const deletetasklist = (boardId, tasklistId) => async (dispatch) => {
         const { data } = await api.deletetasklist(boardId, tasklistId);
         dispatch({ type: "DELETE_TASKLIST", data });
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            alert("Authentication Expired! please re-Login!");
+            dispatch({ type: "SIGNOUT" });
+        } else {
+            console.log(error);
+        }
     }
 };
 
@@ -68,6 +88,11 @@ export const performTaskDragReorder =
                 draggedTaskId
             );
         } catch (error) {
-            console.log(error);
+            if (error.response) {
+                alert("Authentication Expired! please re-Login!");
+                dispatch({ type: "SIGNOUT" });
+            } else {
+                console.log(error);
+            }
         }
     };

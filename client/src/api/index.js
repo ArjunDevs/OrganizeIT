@@ -1,9 +1,25 @@
 import axios from "axios";
 
+const AuthAPI = axios.create({ baseURL: "http://localhost:5000" });
+
 const API = axios.create({ baseURL: "http://localhost:5000" });
 
-export const signIn = (formData) => API.post("/user/signin", formData);
-export const signUp = (formData) => API.post("/user/signup", formData);
+API.interceptors.request.use(
+    (config) => {
+        const token = JSON.parse(localStorage.getItem("profile")).token;
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+export const signIn = (formData) => AuthAPI.post("/auth/signin", formData);
+export const signUp = (formData) => AuthAPI.post("/auth/signup", formData);
+
 export const getboards = (userId) => API.get(`/user/${userId}/boards`);
 export const createboard = (userId, BoardFormData) =>
     API.post(`/user/${userId}/createboard`, BoardFormData);

@@ -5,7 +5,12 @@ export const getboards = (userId) => async (dispatch) => {
         const { data } = await api.getboards(userId);
         dispatch({ type: "GET_ALL_BOARDS", data });
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            alert("Authentication Expired! please re-Login!");
+            dispatch({ type: "SIGNOUT" });
+        } else {
+            console.log(error);
+        }
     }
 };
 
@@ -14,7 +19,12 @@ export const createboard = (userId, BoardFormdata) => async (dispatch) => {
         const { data } = await api.createboard(userId, BoardFormdata);
         dispatch({ type: "CREATE_BOARD", data });
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            alert("Authentication Expired! please re-Login!");
+            dispatch({ type: "SIGNOUT" });
+        } else {
+            console.log(error);
+        }
     }
 };
 
@@ -23,7 +33,12 @@ export const deleteboard = (userId, boardId) => async (dispatch) => {
         const { data } = await api.deleteboard(userId, boardId);
         dispatch({ type: "DELETE_BOARD", data });
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            alert("Authentication Expired! please re-Login!");
+            dispatch({ type: "SIGNOUT" });
+        } else {
+            console.log(error);
+        }
     }
 };
 
@@ -32,6 +47,11 @@ export const editboard = (userId, boardId, BoardData) => async (dispatch) => {
         const { data } = await api.editboard(userId, boardId, BoardData);
         dispatch({ type: "EDIT_BOARD", data });
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            alert("Authentication Expired! please re-Login!");
+            dispatch({ type: "SIGNOUT" });
+        } else {
+            console.log(error);
+        }
     }
 };

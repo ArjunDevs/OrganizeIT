@@ -25,6 +25,7 @@ export const Board = () => {
     const taskListsdata = useSelector(
         (state) => state.board[linkParams.boardId] || []
     );
+    const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
         const user = localStorage.getItem("profile");
@@ -44,7 +45,7 @@ export const Board = () => {
         } else {
             navigate("/");
         }
-    }, [dispatch, navigate, linkParams.boardId]);
+    }, [dispatch, navigate, linkParams.boardId, auth]);
 
     const handleFormDataChange = (e) => {
         setTasklistFormData({

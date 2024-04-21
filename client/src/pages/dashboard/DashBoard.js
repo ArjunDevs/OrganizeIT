@@ -23,6 +23,7 @@ export const DashBoard = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userboardsData = useSelector((state) => state.user);
+    const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
         const user = localStorage.getItem("profile");
@@ -44,7 +45,7 @@ export const DashBoard = () => {
         } else {
             navigate("/");
         }
-    }, [dispatch, navigate]);
+    }, [dispatch, navigate, auth]);
 
     const handleFormDataChange = (e) => {
         setBoardFormData({ ...BoardFormData, [e.target.name]: e.target.value });

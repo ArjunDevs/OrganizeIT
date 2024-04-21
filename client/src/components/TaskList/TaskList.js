@@ -28,6 +28,7 @@ export const TaskList = (props) => {
 
     const navigate = useNavigate();
     const TaskData = useSelector((state) => state.tasklist[props.id] || []);
+    const auth = useSelector((state) => state.auth);
 
     useEffect(() => {
         const user = localStorage.getItem("profile");
@@ -47,7 +48,7 @@ export const TaskList = (props) => {
         } else {
             navigate("/");
         }
-    }, [dispatch, navigate, props.id]);
+    }, [dispatch, navigate, props.id, auth]);
 
     const handleCreateTask = () => {
         setIsCreateNewTask((prevValue) => !prevValue);
