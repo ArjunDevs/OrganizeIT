@@ -26,7 +26,7 @@ export const CreateUser = async (req, res) => {
         const token = jwt.sign(
             { email: result.email, id: result._id },
             process.env.CLIENT_SECRET,
-            { expiresIn: "1m" }
+            { expiresIn: "1h" }
         );
 
         res.status(200).json({ result: result, token });
@@ -55,7 +55,7 @@ export const getExistingUser = async (req, res) => {
         const token = jwt.sign(
             { email: existingUser.email, id: existingUser._id },
             process.env.CLIENT_SECRET,
-            { expiresIn: "1m" }
+            { expiresIn: "1h" }
         );
 
         res.status(200).json({ result: existingUser, token });

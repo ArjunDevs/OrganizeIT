@@ -44,10 +44,11 @@ export const Task = (props) => {
             key={`task-${props.id}`}
             draggableId={`task-${props.id}`}
             index={props.index}
+            isDragDisabled={isEditTaskInfo}
         >
             {(provided) => (
                 <div
-                    className="w-auto min-h-32 flex flex-col justify-between bg-slate-200 hover:bg-slate-300 transition-colors duration-300 rounded-lg mb-2 p-2"
+                    className=" w-full min-h-32 flex flex-col justify-between bg-slate-200 hover:bg-slate-300 transition-colors duration-300 rounded-lg mb-2 p-2"
                     {...provided.dragHandleProps}
                     {...provided.draggableProps}
                     ref={provided.innerRef}
@@ -80,7 +81,7 @@ export const Task = (props) => {
                         <div className="absolute inset-0 bg-white/30 pt-16 backdrop-blur-sm flex flex-col justify-center items-center">
                             <div className="bg-transparent backdrop-blur-lg w-auto h-auto px-10 py-10 flex flex-col border-2 border-gray-300 rounded">
                                 <h1 className="mb-4 font-mono text-gray-700 text-3xl font-extrabold">
-                                    Create Task
+                                    Edit Task
                                 </h1>
                                 <form
                                     className="flex flex-col"

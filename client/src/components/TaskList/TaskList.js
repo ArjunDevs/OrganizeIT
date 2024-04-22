@@ -97,7 +97,7 @@ export const TaskList = (props) => {
     };
 
     return (
-        <div className="h-fit min-w-96 border border-white mr-10 rounded-lg flex flex-col p-5 bg-slate-200/80">
+        <div className="h-fit min-w-96 max-w-96 border border-white mr-10 rounded-lg flex flex-col p-5 bg-slate-200/80">
             <div className="flex flex-row justify-between items-center border-b-2 border-slate-500 pb-1 mb-1">
                 <h1 className="text-xl font-extrabold font-mono text-slate-800 truncate">
                     {props.title}
@@ -132,9 +132,11 @@ export const TaskList = (props) => {
                         ref={provided.innerRef}
                     >
                         {TaskData.length === 0 && (
-                            <div className=" opacity-20 bg-inherit w-auto min-h-20 flex flex-row justify-center items-center rounded-lg mb-2 p-2 border-dashed border-4 border-black">
-                                <IoAddCircleOutline className="text-black w-7 h-7 p-1" />
-                                <span>Add or drag items</span>
+                            <div className="bg-inherit w-auto min-h-20 flex flex-row justify-center items-center rounded-lg mb-2 p-2 border-dashed border-4 border-black/20">
+                                <IoAddCircleOutline className="text-black/30 w-7 h-7 p-1" />
+                                <span className="text-black/30">
+                                    Add or drag items
+                                </span>
                             </div>
                         )}
                         {TaskData.map((task, index) => (
