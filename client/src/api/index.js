@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const AuthAPI = axios.create({ baseURL: "http://localhost:5000" });
+const AuthAPI = axios.create({ baseURL: "https://organize-it-jet.vercel.app" });
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: "https://organize-it-jet.vercel.app" });
 
 API.interceptors.request.use(
     (config) => {
