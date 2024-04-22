@@ -35,6 +35,10 @@ const verifyToken = (req, res, next) => {
     });
 };
 
+app.get("/", (req, res) => {
+    return res.status(200).json("hello from OrganizeIT");
+});
+
 app.use("/auth", AuthRouter);
 app.use("/user", verifyToken, UserRouter);
 app.use("/board", verifyToken, BoardRouter);
